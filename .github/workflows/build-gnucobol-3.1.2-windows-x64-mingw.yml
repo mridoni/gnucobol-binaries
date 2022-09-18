@@ -10,7 +10,7 @@ on:
 
 env:
     WORKSPACE: ${{ github.workspace }}
-    MSYS2_INSTALL_ROOT: d:/
+    MSYS2_INSTALL_ROOT: d:\
   
 permissions:
   contents: read
@@ -43,8 +43,11 @@ jobs:
          echo "=== This is what is being packaged"
          cobc -info
          echo "=== This is what is being packaged (end)"
+         echo "creating package directory: $WORKSPACE/${{ env.PKG_NAME }}"
          mkdir $WORKSPACE/${{ env.PKG_NAME }}
-         cp -fravp $(cygpath ${{ env.MSYS_INSTALL_DIR }})/* $WORKSPACE/${{ env.PKG_NAME }}/
+         echo "Copying: cp -fravp $(cygpath '${{ env.MSYS_INSTALL_DIR }}')/* $WORKSPACE/${{ env.PKG_NAME }}/"
+         cp -fravp $(cygpath '${{ env.MSYS_INSTALL_DIR }}')/* $WORKSPACE/${{ env.PKG_NAME }}/
+         echo "Packaging (${{ env.PKG_NAME }}.tar.gz)"
          tar -C $WORKSPACE -czvf ${{ env.PKG_NAME }}.tar.gz ${{ env.PKG_NAME }}/
          
     - name: Archive package
