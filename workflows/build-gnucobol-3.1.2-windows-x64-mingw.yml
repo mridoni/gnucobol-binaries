@@ -29,8 +29,8 @@ jobs:
     steps:
     - uses: msys2/setup-msys2@v2
       with:
-          repository: 'mridoni/gix'
-    
+         msystem: ${{matrix.sys}}
+         install: mingw-w64-${{matrix.env}}-openssl    
     - shell: msys2 {0}
         run: |
          uname -a
