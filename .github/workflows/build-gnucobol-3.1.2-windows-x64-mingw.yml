@@ -8,10 +8,8 @@ on:
 #  pull_request:
 #    branches: [ "main" ]
 
-#env:
-#  MSYS2_SYSTEM: MINGW64
-#  PLATFORM_ID: x86_64
-#  PLATFORM_SHORT_ID: x64
+env:
+    WORKSPACE: ${{ github.workspace }}
   
 permissions:
   contents: read
@@ -19,6 +17,7 @@ permissions:
 jobs:
   gnucobol_3_1_2_windows_x64_mingw:
     env:
+      PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x86_64
       PLATFORM_SHORT_ID: x64    
@@ -28,12 +27,17 @@ jobs:
     steps:
     - uses: msys2/setup-msys2@v2
       with:
+         location: D:\
          msystem: ${{ env.MSYS2_SYSTEM }}
          install: mingw-w64-${{ env.PLATFORM_ID }}-gnucobol    
     - shell: msys2 {0}
       run: |
          uname -a
+         echo "=== This is what is being packaged"
          cobc -info
+         echo "=== This is what is being packaged (end)"
+         ls /d -l
+         
 #
 #    - name: Build
 #      shell: cmd
