@@ -28,6 +28,7 @@ jobs:
     - shell: msys2 {0}
       run: |
          uname -a
+         cobc -info
 #
 #    - name: Build
 #      shell: cmd
