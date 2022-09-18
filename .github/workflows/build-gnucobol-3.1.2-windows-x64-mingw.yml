@@ -23,7 +23,7 @@ jobs:
       PLATFORM_ID: x86_64
       PLATFORM_SHORT_ID: x64    
       
-    name: gnucobol-3.1.2-windows-x64-mingw
+    name: Install gnucobol-3.1.2-windows-x64-mingw
     runs-on: windows-latest
     steps:
     - uses: msys2/setup-msys2@v2
@@ -33,28 +33,19 @@ jobs:
          install: mingw-w64-${{ env.PLATFORM_ID }}-gnucobol    
          
     - name: Build package
-      shell: msys2 {0}
-      env:
-          MSYS2_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}msys64
+      shell: cmd
       run: |
-         export WORKSPACE=$(cygpath '${{ github.workspace }}')
-         export MSYS2_INSTALL_DIR=$(cygpath '${{ github.MSYS2_INSTALL_DIR }}')
-         echo "WORKSPACE is $WORKSPACE"
-         echo "MSYS2_INSTALL_DIR is $MSYS2_INSTALL_DIR"
-         uname -a
-         echo "=== This is what is being packaged"
-         cobc -info
-         echo "=== This is what is being packaged (end)"
-         echo "creating package directory: $WORKSPACE/${{ env.PKG_NAME }}"
-         mkdir $WORKSPACE/${{ env.PKG_NAME }}
-         echo "Copying: cp -fravp $MSYS2_INSTALL_DIR/* $WORKSPACE/${{ env.PKG_NAME }}/"
-         cp -fravp $MSYS2_INSTALL_DIR/* $WORKSPACE/${{ env.PKG_NAME }}/
-         echo "Packaging (${{ env.PKG_NAME }}.tar.gz)"
-         tar -C $WORKSPACE -czvf ${{ env.PKG_NAME }}.tar.gz ${{ env.PKG_NAME }}/
-         
+         set PKGDIR=${{ github.workspace }}\${{ env.PKG_NAME }}
+         echo Creating package directory: %PKGDIR%
+         mkdir %PKGDIR%"
+         echo Copying: robocopy /E %MSYS2_INSTALL_DIR% %PKGDIR%
+         robocopy /E %MSYS2_INSTALL_DIR%  %PKGDIR%
+         echo Packaging ${{ env.PKG_NAME }}.7z"
+         7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z fondazioneconilsud ${{ env.PKG_NAME }}  
+      
     - name: Archive package
       uses: actions/upload-artifact@v3
       with:
          name: ${{ env.PKG_NAME }}.tar.gz
          path: |
-           ${{ github.workspace }}/${{ env.PKG_NAME }}.tar.gz
+           ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
