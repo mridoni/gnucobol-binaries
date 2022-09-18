@@ -35,18 +35,20 @@ jobs:
     - name: Build package
       shell: msys2 {0}
       env:
-          MSYS_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}msys64
+          MSYS2_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}msys64
       run: |
          export WORKSPACE=$(cygpath '${{ github.workspace }}')
+         export MSYS2_INSTALL_DIR=$(cygpath '${{ github.MSYS2_INSTALL_DIR }}')
          echo "WORKSPACE is $WORKSPACE"
+         echo "MSYS2_INSTALL_DIR is $MSYS2_INSTALL_DIR"
          uname -a
          echo "=== This is what is being packaged"
          cobc -info
          echo "=== This is what is being packaged (end)"
          echo "creating package directory: $WORKSPACE/${{ env.PKG_NAME }}"
          mkdir $WORKSPACE/${{ env.PKG_NAME }}
-         echo "Copying: cp -fravp $(cygpath '${{ env.MSYS_INSTALL_DIR }}')/* $WORKSPACE/${{ env.PKG_NAME }}/"
-         cp -fravp $(cygpath '${{ env.MSYS_INSTALL_DIR }}')/* $WORKSPACE/${{ env.PKG_NAME }}/
+         echo "Copying: cp -fravp $MSYS2_INSTALL_DIR/* $WORKSPACE/${{ env.PKG_NAME }}/"
+         cp -fravp $MSYS2_INSTALL_DIR/* $WORKSPACE/${{ env.PKG_NAME }}/
          echo "Packaging (${{ env.PKG_NAME }}.tar.gz)"
          tar -C $WORKSPACE -czvf ${{ env.PKG_NAME }}.tar.gz ${{ env.PKG_NAME }}/
          
