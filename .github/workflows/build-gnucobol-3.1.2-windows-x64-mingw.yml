@@ -42,12 +42,11 @@ jobs:
          mkdir %PKGDIR%"
          echo Copying: %MSYS2_INSTALL_DIR% => %PKGDIR%
          robocopy /E %MSYS2_INSTALL_DIR%  %PKGDIR%
-         echo Packaging ${{ env.PKG_NAME }}.7z"
-         7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z fondazioneconilsud ${{ env.PKG_NAME }}  
+#         echo Packaging ${{ env.PKG_NAME }}.7z"
+#         7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z fondazioneconilsud ${{ env.PKG_NAME }}  
       
     - name: Archive package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3  
       with:
-         name: ${{ env.PKG_NAME }}.tar.gz
-         path: |
-           ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
+         name: ${{ env.PKG_NAME }}.zip
+         path: ${{ github.workspace }}\${{ env.PKG_NAME }}  
