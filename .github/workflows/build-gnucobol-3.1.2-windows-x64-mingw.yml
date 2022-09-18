@@ -37,7 +37,7 @@ jobs:
       env:
           MSYS_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}msys64
       run: |
-         export WORKSPACE=$(cygpath ${{ github.workspace }})
+         export WORKSPACE=$(cygpath '${{ github.workspace }}')
          echo "WORKSPACE is $WORKSPACE"
          uname -a
          echo "=== This is what is being packaged"
