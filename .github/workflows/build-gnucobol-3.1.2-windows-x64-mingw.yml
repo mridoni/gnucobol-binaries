@@ -36,10 +36,11 @@ jobs:
       shell: cmd
       env:
           PKGDIR: ${{ github.workspace }}\${{ env.PKG_NAME }}
+          MSYS2_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}\msys64
       run: |
          echo Creating package directory: %PKGDIR%
          mkdir %PKGDIR%"
-         echo Copying: robocopy /E %MSYS2_INSTALL_DIR% %PKGDIR%
+         echo Copying: %MSYS2_INSTALL_DIR% => %PKGDIR%
          robocopy /E %MSYS2_INSTALL_DIR%  %PKGDIR%
          echo Packaging ${{ env.PKG_NAME }}.7z"
          7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z fondazioneconilsud ${{ env.PKG_NAME }}  
