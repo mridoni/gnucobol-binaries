@@ -37,13 +37,14 @@ jobs:
       env:
           MSYS_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}msys64
       run: |
+         export WORKSPACE=$(cygpath ${{ github.workspace }})
          uname -a
          echo "=== This is what is being packaged"
          cobc -info
          echo "=== This is what is being packaged (end)"
-         mkdir ${{ github.workspace }}/${{ env.PKG_NAME }}
-         cp -fravp $(cygpath ${{ env.MSYS_INSTALL_DIR }})/* ${{ github.workspace }}/${{ env.PKG_NAME }}/
-         tar -C ${{ github.workspace }} -czvf ${{ env.PKG_NAME }}.tar.gz ${{ env.PKG_NAME }}/
+         mkdir $WORKSPACE/${{ env.PKG_NAME }}
+         cp -fravp $(cygpath ${{ env.MSYS_INSTALL_DIR }})/* $WORKSPACE/${{ env.PKG_NAME }}/
+         tar -C $WORKSPACE -czvf ${{ env.PKG_NAME }}.tar.gz ${{ env.PKG_NAME }}/
          
     - name: Archive package
       uses: actions/upload-artifact@v3
