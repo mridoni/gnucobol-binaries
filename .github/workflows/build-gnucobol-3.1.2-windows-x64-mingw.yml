@@ -9,19 +9,13 @@ on:
 #    branches: [ "main" ]
 
 env:
-  GIX_VER_GIXIDEMAJ: 1
-  GIX_VER_GIXIDEMIN: 0
-  GIX_VER_GIXIDEREL: 18
-  GIX_VER_GIXIDEBLD: 9999
-  GIX_SQL_VERSION: 1.0.18
-  SOLUTION_FILE_PATH: gix-ide.sln
-  VCPKG_ROOT: C:\vcpkg
-
+  PLATFORM_ID: x86_64
+  
 permissions:
   contents: read
 
 jobs:
-  gnucobol-3.1.2-windows-x64-mingw:
+  gnucobol_3_1_2_windows_x64_mingw:
     name: gnucobol-3.1.2-windows-x64-mingw
     env:   
       PLATFORM_ID: x64    
@@ -30,9 +24,9 @@ jobs:
     - uses: msys2/setup-msys2@v2
       with:
          msystem: ${{matrix.sys}}
-         install: mingw-w64-${{matrix.env}}-openssl    
+         install: mingw-w64-${{ env.PLATFORM_ID }}-openssl    
     - shell: msys2 {0}
-        run: |
+      run: |
          uname -a
 #
 #    - name: Build
