@@ -8,22 +8,27 @@ on:
 #  pull_request:
 #    branches: [ "main" ]
 
-env:
-  PLATFORM_ID: x86_64
+#env:
+#  MSYS2_SYSTEM: MINGW64
+#  PLATFORM_ID: x86_64
+#  PLATFORM_SHORT_ID: x64
   
 permissions:
   contents: read
 
 jobs:
   gnucobol_3_1_2_windows_x64_mingw:
+    env:
+      MSYS2_SYSTEM: MINGW64
+      PLATFORM_ID: x86_64
+      PLATFORM_SHORT_ID: x64    
+      
     name: gnucobol-3.1.2-windows-x64-mingw
-    env:   
-      PLATFORM_ID: x64    
     runs-on: windows-latest
     steps:
     - uses: msys2/setup-msys2@v2
       with:
-         msystem: ${{matrix.sys}}
+         msystem: ${{ env.MSYS2_SYSTEM }}
          install: mingw-w64-${{ env.PLATFORM_ID }}-gnucobol    
     - shell: msys2 {0}
       run: |
