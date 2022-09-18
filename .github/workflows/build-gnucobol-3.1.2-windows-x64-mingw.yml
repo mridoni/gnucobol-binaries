@@ -38,8 +38,9 @@ jobs:
           MSYS2_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}\msys64
       run: |
          echo Package directory: %PKGDIR%
+         echo Workspace        : ${{ github.workspace }}
          echo Copying: %MSYS2_INSTALL_DIR% => %PKGDIR%
-         robocopy /E /NFL /NDL /nc /ns /np "%MSYS2_INSTALL_DIR%"  "%PKGDIR%"
+         robocopy /E /NFL /NDL /nc /ns /np %MSYS2_INSTALL_DIR%  %PKGDIR%
 
 #    - name: Archive package
 #      uses: actions/upload-artifact@v3  
