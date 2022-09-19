@@ -36,7 +36,7 @@ jobs:
       uses: mridoni/my-vcpkg-action@v2
       with:
           pkgs: berkeleydb mpir pdcurses
-          triplet: x64-windows-release
+          triplet: x64-windows
           disable-cache: false
           cache-key: x64-pkgs
           
@@ -44,7 +44,7 @@ jobs:
       uses: mridoni/my-vcpkg-action@v2
       with:
           pkgs: berkeleydb mpir pdcurses
-          triplet: x86-windows-release
+          triplet: x86-windows
           disable-cache: false       
           cache-key: x86-pkgs
 
