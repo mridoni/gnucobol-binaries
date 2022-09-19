@@ -35,7 +35,7 @@ jobs:
     - name: Build package
       shell: cmd
       run: |
-         robocopy /E /NFL /NDL /nc /ns /np /R:1 /W:1 /nocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }}
+         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.*  /E /NFL /NDL /nc /ns /np /R:1 /W:1 /nocopy
          dir /S ${{ github.workspace }}\${{ env.PKG_NAME }}
          
     - name: Archive package
