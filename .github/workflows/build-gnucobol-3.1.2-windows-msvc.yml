@@ -48,26 +48,26 @@ jobs:
           disable-cache: false       
           cache-key: x86-pkgs
 
-#    - name: Build
-#      shell: cmd
-#      working-directory: ${{ github.workspace }}
-#      run: |
-#        echo "VCPKG_ROOT         : ${{env.VCPKG_ROOT}}"
-#        echo "BUILD_CONFIGURATION: ${{env.BUILD_CONFIGURATION}}"
-#        echo "SOLUTION_FILE_PATH : ${{env.SOLUTION_FILE_PATH}}"
-#        vcpkg integrate install
-#        choco install winflexbison3
-#        powershell build_windows\maketarstamp.ps1 > tarstamp.h
-#        copy build_windows\config.h.in build_windows\config.h
-#        sed -i 's/#define\ CONFIGURED_ISAM\ *VBISAM/#define\ CONFIGURED_ISAM\ BDB/' build_windows\config.h
-#        sed -i 's/#define\ CONFIGURED_XML\ *NOXML/#define\ CONFIGURED_XML\ XML2/' build_windows\config.h
-#        sed -i 's/#define\ CONFIGURED_JSON\ *NOJSON/#define\ CONFIGURED_JSON\ CJSON/' build_windows\config.h      
-#        win_bison -o "cobc\parser.c" "cobc\parser.y"
-#        win_bison -o "cobc\ppparse.c" "cobc\ppparse.y"
-#        win_flex -o "cobc\pplex.c" "cobc\pplex.l"
-#        win_flex -o "cobc\scanner.c" "cobc\scanner.l"        
-#        msbuild /m /p:Platform=x64 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
-#        msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+    - name: Build
+      shell: cmd
+      working-directory: ${{ github.workspace }}
+      run: |
+         echo "VCPKG_ROOT         : ${{env.VCPKG_ROOT}}"
+         echo "BUILD_CONFIGURATION: ${{env.BUILD_CONFIGURATION}}"
+         echo "SOLUTION_FILE_PATH : ${{env.SOLUTION_FILE_PATH}}"
+         vcpkg integrate install
+         choco install winflexbison3
+         powershell build_windows\maketarstamp.ps1 > tarstamp.h
+         copy build_windows\config.h.in build_windows\config.h
+         sed -i 's/#define\ CONFIGURED_ISAM\ *VBISAM/#define\ CONFIGURED_ISAM\ BDB/' build_windows\config.h
+         sed -i 's/#define\ CONFIGURED_XML\ *NOXML/#define\ CONFIGURED_XML\ XML2/' build_windows\config.h
+         sed -i 's/#define\ CONFIGURED_JSON\ *NOJSON/#define\ CONFIGURED_JSON\ CJSON/' build_windows\config.h      
+         win_bison -o "cobc\parser.c" "cobc\parser.y"
+         win_bison -o "cobc\ppparse.c" "cobc\ppparse.y"
+         win_flex -o "cobc\pplex.c" "cobc\pplex.l"
+         win_flex -o "cobc\scanner.c" "cobc\scanner.l"        
+         msbuild /m /p:Platform=x64 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+         msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
 
 #    - name: Archive production artifacts
 #      uses: actions/upload-artifact@v3
