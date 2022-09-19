@@ -17,7 +17,7 @@ permissions:
 jobs:
   gnucobol_3_1_2_windows_x64_mingw:
     env:
-      PKG_NAME: GC312
+      PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x86_64
       PLATFORM_SHORT_ID: x64    
@@ -37,8 +37,8 @@ jobs:
       run: |
          robocopy /E /NFL /NDL /nc /ns /np /R:1 /W:1 /nocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }}
 
-#    - name: Archive package
-#      uses: actions/upload-artifact@v3  
-#      with:
-#         name: ${{ env.PKG_NAME }}
-#         path: ${{ github.workspace }}/${{ env.PKG_NAME }}/
+    - name: Archive package
+      uses: actions/upload-artifact@v3  
+      with:
+         name: ${{ env.PKG_NAME }}
+         path: ${{ github.workspace }}/${{ env.PKG_NAME }}/
