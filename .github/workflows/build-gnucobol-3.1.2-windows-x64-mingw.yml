@@ -40,9 +40,8 @@ jobs:
          echo Package directory: %PKGDIR%
          echo Workspace        : ${{ github.workspace }}
          echo Copying: %MSYS2_INSTALL_DIR% => %PKGDIR%
-         dir /S ${{ github.workspace }}
-         robocopy /E %MSYS2_INSTALL_DIR%  %PKGDIR%         
-#        robocopy /E /NFL /NDL /nc /ns /np %MSYS2_INSTALL_DIR%  %PKGDIR%
+         rmdir /S /Q %PKGDIR%
+         robocopy /E /NFL /NDL /nc /ns /np %MSYS2_INSTALL_DIR%  %PKGDIR%
          
 
 #    - name: Archive package
