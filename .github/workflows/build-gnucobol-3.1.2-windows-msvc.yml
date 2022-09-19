@@ -34,6 +34,13 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
         
+    - name: Build
+      shell: cmd
+      working-directory: ${{ github.workspace }}
+      run: |
+           echo ${{ env.GITHUB_WORKSPACE }}
+           echo ${{ github.workspace }}
+           
     - name: Install vcpkg packages (x64)
       uses: mridoni/my-vcpkg-action@v3
       with:
