@@ -17,11 +17,13 @@ permissions:
 
 jobs:
   gnucobol_3_1_2_windows_msvc:
+    
     name: gnucobol-3.1.2-windows
     env:
       BUILD_CONFIGURATION: Release
 
-    runs-on: windows-latest
+#    runs-on: windows-latest
+    runs-on: self-hosted
     
     steps:
     - uses: actions/checkout@v3
