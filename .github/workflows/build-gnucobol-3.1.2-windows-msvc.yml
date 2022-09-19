@@ -35,7 +35,7 @@ jobs:
     - name: Install vcpkg packages (x64)
       uses: mridoni/my-vcpkg-action@v1
       with:
-          pkgs: berkeleydb mpir ncurses
+          pkgs: berkeleydb mpir pdcurses
           triplet: x64-windows
           disable-cache: false
 
