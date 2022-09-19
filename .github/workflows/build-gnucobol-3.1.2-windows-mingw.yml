@@ -1,4 +1,4 @@
-name: build-gnucobol-3.1.2-windows-x64-mingw.yml
+name: build-gnucobol-3.1.2-windows-mingw.yml
 
 on:
   workflow_dispatch
@@ -23,6 +23,36 @@ jobs:
       PLATFORM_SHORT_ID: x64    
       
     name: Install gnucobol-3.1.2-windows-x64-mingw
+    runs-on: windows-latest
+    steps:
+    - name: Install packages
+      uses: msys2/setup-msys2@v2
+      with:
+         location: ${{ env.MSYS2_INSTALL_ROOT }}
+         msystem: ${{ env.MSYS2_SYSTEM }}
+         install: mingw-w64-${{ env.PLATFORM_ID }}-gnucobol    
+         
+    - name: Build package
+      shell: cmd
+      continue-on-error: true
+      run: |
+         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.* /MIR /NFL /NDL /nc /ns /np
+         7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
+         
+    - name: Archive package
+      uses: actions/upload-artifact@v3  
+      with:
+         name: ${{ env.PKG_NAME }}
+         path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
+
+  gnucobol_3_1_2_windows_x86_mingw:
+    env:
+      PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
+      MSYS2_SYSTEM: MINGW32
+      PLATFORM_ID: x86
+      PLATFORM_SHORT_ID: x86   
+      
+    name: Install gnucobol-3.1.2-windows-x86-mingw
     runs-on: windows-latest
     steps:
     - name: Install packages
