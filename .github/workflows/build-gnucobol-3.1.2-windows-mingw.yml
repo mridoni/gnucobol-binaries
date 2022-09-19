@@ -20,7 +20,6 @@ jobs:
       PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x86_64
-      PLATFORM_SHORT_ID: x64    
       
     name: Install gnucobol-3.1.2-windows-x64-mingw
     runs-on: windows-latest
@@ -47,10 +46,9 @@ jobs:
 
   gnucobol_3_1_2_windows_x86_mingw:
     env:
-      PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
+      PKG_NAME: gnucobol-3.1.2-windows-x86-mingw
       MSYS2_SYSTEM: MINGW32
-      PLATFORM_ID: x86
-      PLATFORM_SHORT_ID: x86   
+      PLATFORM_ID: i686
       
     name: Install gnucobol-3.1.2-windows-x86-mingw
     runs-on: windows-latest
