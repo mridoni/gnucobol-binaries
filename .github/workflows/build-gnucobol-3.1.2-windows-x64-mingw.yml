@@ -35,7 +35,7 @@ jobs:
     - name: Build package
       shell: cmd
       env:
-          PKGDIR: D:/${{ github.workspace }}/${{ env.PKG_NAME }}
+          PKGDIR: ${{ github.workspace }}\${{ env.PKG_NAME }}
           MSYS2_INSTALL_DIR: ${{ env.MSYS2_INSTALL_ROOT }}\msys64
       run: |
          echo Package directory: %PKGDIR%
