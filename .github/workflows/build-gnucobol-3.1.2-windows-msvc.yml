@@ -35,7 +35,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
         
     - name: Install vcpkg packages (x64)
-      uses: mridoni/my-vcpkg-action@v2
+      uses: mridoni/my-vcpkg-action@v3
       with:
           pkgs: berkeleydb mpir pdcurses libxml2 cjson
           triplet: x64-windows
@@ -43,7 +43,7 @@ jobs:
           cache-key: x64-pkgs
           
     - name: Install vcpkg packages (x86)
-      uses: mridoni/my-vcpkg-action@v2
+      uses: mridoni/my-vcpkg-action@v3
       with:
           pkgs: berkeleydb mpir pdcurses libxml2 cjson
           triplet: x86-windows
