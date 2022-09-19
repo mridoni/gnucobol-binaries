@@ -10,6 +10,7 @@ on:
 
 env:
     MSYS2_INSTALL_ROOT: d:\
+    ARTIFACT_NAME: gnucobol-3.1.2-windows-mingw
   
 permissions:
   contents: read
@@ -41,7 +42,7 @@ jobs:
     - name: Archive package
       uses: actions/upload-artifact@v3  
       with:
-         name: ${{ env.PKG_NAME }}
+         name: ${{ env.ARTIFACT_NAME }}
          path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
 
   gnucobol_3_1_2_windows_x86_mingw:
@@ -70,5 +71,5 @@ jobs:
     - name: Archive package
       uses: actions/upload-artifact@v3  
       with:
-         name: ${{ env.PKG_NAME }}
+         name: ${{ env.ARTIFACT_NAME }}
          path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
