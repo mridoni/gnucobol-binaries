@@ -61,7 +61,7 @@ jobs:
          copy build_windows\config.h.in build_windows\config.h
          sed -i 's/#define\ CONFIGURED_ISAM\ *VBISAM/#define\ CONFIGURED_ISAM\ BDB/' build_windows\config.h
          sed -i 's/#define\ CONFIGURED_XML\ *NOXML/#define\ CONFIGURED_XML\ XML2/' build_windows\config.h
-         sed -i 's/#define\ CONFIGURED_JSON\ *NOJSON/#define\ CONFIGURED_JSON\ CJSON/' build_windows\config.h      
+         sed -i 's/#define\ CONFIGURED_JSON\ *NOJSON/#define\ CONFIGURED_JSON\ CJSON_LOCAL/' build_windows\config.h      
          win_bison -o "cobc\parser.c" "cobc\parser.y"
          win_bison -o "cobc\ppparse.c" "cobc\ppparse.y"
          win_flex -o "cobc\pplex.c" "cobc\pplex.l"
