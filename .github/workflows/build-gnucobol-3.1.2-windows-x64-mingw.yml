@@ -17,7 +17,7 @@ permissions:
 jobs:
   gnucobol_3_1_2_windows_x64_mingw:
     env:
-      PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
+      PKG_NAME: GC312
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x86_64
       PLATFORM_SHORT_ID: x64    
@@ -25,7 +25,8 @@ jobs:
     name: Install gnucobol-3.1.2-windows-x64-mingw
     runs-on: windows-latest
     steps:
-    - uses: msys2/setup-msys2@v2
+    - name: Install packages
+      uses: msys2/setup-msys2@v2
       with:
          location: ${{ env.MSYS2_INSTALL_ROOT }}
          msystem: ${{ env.MSYS2_SYSTEM }}
