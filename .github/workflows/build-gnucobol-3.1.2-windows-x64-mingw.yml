@@ -41,7 +41,9 @@ jobs:
          echo Workspace        : ${{ github.workspace }}
          echo Copying: %MSYS2_INSTALL_DIR% => %PKGDIR%
          dir /S ${{ github.workspace }}
-         robocopy /E /NFL /NDL /nc /ns /np %MSYS2_INSTALL_DIR%  %PKGDIR%
+         robocopy /E %MSYS2_INSTALL_DIR%  %PKGDIR%         
+#        robocopy /E /NFL /NDL /nc /ns /np %MSYS2_INSTALL_DIR%  %PKGDIR%
+         
 
 #    - name: Archive package
 #      uses: actions/upload-artifact@v3  
