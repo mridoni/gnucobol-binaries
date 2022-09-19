@@ -32,11 +32,11 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
         
-    - name: Install vcpkg packages
+    - name: Install vcpkg packages (x64)
       uses: mridoni/my-vcpkg-action@v1
       with:
           pkgs: berkeleydb mpir ncurses
-          triplet: ${{env.PLATFORM_ID}}-windows
+          triplet: x64-windows
           disable-cache: false
 
     - name: Build (x64)
