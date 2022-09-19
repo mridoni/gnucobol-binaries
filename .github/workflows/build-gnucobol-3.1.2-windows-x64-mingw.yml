@@ -36,7 +36,7 @@ jobs:
       shell: cmd
       run: |
          robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.*  /MIR /NFL /NDL /nc /ns /np /nocopy
-         dir /S ${{ github.workspace }}\${{ env.PKG_NAME }}
+#         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.*  /MIR 
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
