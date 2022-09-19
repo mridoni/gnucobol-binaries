@@ -34,9 +34,9 @@ jobs:
          
     - name: Build package
       shell: cmd
+      continue-on-error: true
       run: |
-         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.* /MIR /NFL /NDL /nc /ns /np /nocopy
-#         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.*  /MIR /NFL /NDL /nc /ns /np /nocopy         
+         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.* /MIR /NFL /NDL /nc /ns /np
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
