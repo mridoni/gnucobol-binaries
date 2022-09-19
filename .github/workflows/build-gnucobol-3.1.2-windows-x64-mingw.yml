@@ -42,6 +42,7 @@ jobs:
          echo Workspace        : ${{ github.workspace }}
          echo Copying: %MSYS2_INSTALL_DIR% => %PKGDIR%
          rmdir /S /Q %PKGDIR%
+         mkdir %PKGDIR%
          robocopy /E /NFL /NDL /nc /ns /np %MSYS2_INSTALL_DIR% %PKGDIR%
          
 
