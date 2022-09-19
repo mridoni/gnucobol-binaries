@@ -37,9 +37,10 @@ jobs:
       continue-on-error: true
       run: |
          robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.* /MIR /NFL /NDL /nc /ns /np
+         7z a -r -w${{ github.workspace }} $${{ github.workspace }}\{{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
       with:
          name: ${{ env.PKG_NAME }}
-         path: ${{ github.workspace }}/${{ env.PKG_NAME }}/
+         path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
