@@ -111,11 +111,9 @@ jobs:
       run: |     
          build_windows\makedist.cmd
 
-#    - name: Archive production artifacts
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: archive-gix-ide-windows-msvc-${{env.PLATFORM_ID}}-artifacts
-#        path: |
-#          ${{ github.workspace }}/${{env.BUILD_PLATFORM}}/${{env.BUILD_CONFIGURATION}}/*.dll
-#          ${{ github.workspace }}/${{env.BUILD_PLATFORM}}/${{env.BUILD_CONFIGURATION}}/libgixsql.lib
-#          ${{ github.workspace }}/${{env.BUILD_PLATFORM}}/${{env.BUILD_CONFIGURATION}}/*.exe
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: GnuCOBOL-3.1.2-Windows-MSVC x86/x64 (BDB, MPIR, PDcurses, XML2, JSON)
+        path: |
+          ${{ github.workspace }}/build_windows/GnuCOBOL_3.1.2_vs_bin.7z
