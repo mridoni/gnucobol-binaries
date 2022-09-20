@@ -26,6 +26,7 @@ jobs:
     runs-on: self-hosted
     
     steps:
+    - uses: AutoModality/action-clean@v1
     - uses: actions/checkout@v3
       with:
           repository: 'OCamlPro/gnucobol'
@@ -107,7 +108,7 @@ jobs:
       env:
           INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
       run: |     
-         build_windows\makedist.bat
+         build_windows\makedist.cmd
 
 #    - name: Archive production artifacts
 #      uses: actions/upload-artifact@v3
