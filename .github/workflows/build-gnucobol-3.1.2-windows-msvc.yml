@@ -65,7 +65,7 @@ jobs:
          echo "BUILD_CONFIGURATION: ${{env.BUILD_CONFIGURATION}}"
          echo "SOLUTION_FILE_PATH : ${{env.SOLUTION_FILE_PATH}}"
          vcpkg integrate install
-         choco install winflexbison3
+         choco install -y winflexbison3
          powershell build_windows\maketarstamp.ps1 > tarstamp.h
          copy build_windows\config.h.in build_windows\config.h
          sed -i 's/#define\ CONFIGURED_ISAM\ *VBISAM/#define\ CONFIGURED_ISAM\ BDB/' build_windows\config.h
