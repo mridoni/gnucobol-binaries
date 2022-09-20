@@ -101,6 +101,9 @@ jobs:
       run: |     
          msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}" /p:LibPath="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
 
+    - name: Configure build for amd64
+      uses: ilammy/msvc-dev-cmd@v1
+        
     - name: Build dist package
       shell: cmd
       working-directory: ${{ github.workspace }}
