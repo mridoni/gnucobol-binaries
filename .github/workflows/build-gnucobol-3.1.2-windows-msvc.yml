@@ -80,6 +80,7 @@ jobs:
       shell: cmd
       working-directory: ${{ github.workspace }}
       env:
+          IncludePath: ${{env.VCPKG_ROOT}}\installed\x64-windows\include;${{ github.workspace }}\build_windows;${{ github.workspace }}
           VCPKG_INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include;${{ github.workspace }}\build_windows;${{ github.workspace }}
           VCPKG_LIBPATH: ${{env.VCPKG_ROOT}}\installed\x64-windows\lib
       run: |
