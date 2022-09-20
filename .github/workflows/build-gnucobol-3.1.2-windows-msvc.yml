@@ -81,7 +81,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       env:
           VCPKG_INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include;${{env.VCPKG_ROOT}}\installed\x64-windows\include\cjson;${{ github.workspace }}\build_windows;${{ github.workspace }}
-          VCPKG_LIBPATH: ${{env.VCPKG_ROOT}}\installed\x64-windows\lib
+          LIBPATH: ${{env.VCPKG_ROOT}}\installed\x64-windows\lib
       run: |
          msbuild /m /p:Platform=x64 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}" /p:AdditionalLibPaths="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
 
@@ -90,7 +90,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       env:
           VCPKG_INCLUDE: ${{env.VCPKG_ROOT}}\installed\x86-windows\include;${{env.VCPKG_ROOT}}\installed\x86-windows\include\cjson;${{ github.workspace }}\build_windows;${{ github.workspace }}
-          VCPKG_LIBPATH: ${{env.VCPKG_ROOT}}\installed\x86-windows\lib
+          LIBPATH: ${{env.VCPKG_ROOT}}\installed\x86-windows\lib
       run: |     
          msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}" /p:LibPath="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
 
