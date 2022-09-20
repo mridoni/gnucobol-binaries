@@ -69,6 +69,7 @@ jobs:
          powershell build_windows\maketarstamp.ps1 > tarstamp.h
          copy build_windows\config.h.in build_windows\config.h
          copy ${{env.VCPKG_ROOT}}\installed\x64-windows\include\db.h build_windows\db.h
+         sed -i 's/3\.1\.1\-dev/3\.1\.2/' build_windows\config.h
          sed -i 's/#define\ CONFIGURED_ISAM\ *VBISAM/#define\ CONFIGURED_ISAM\ BDB/' build_windows\config.h
          sed -i 's/#define\ CONFIGURED_XML\ *NOXML/#define\ CONFIGURED_XML\ XML2/' build_windows\config.h
          sed -i 's/#define\ CONFIGURED_JSON\ *NOJSON/#define\ CONFIGURED_JSON\ CJSON_LOCAL/' build_windows\config.h      
