@@ -60,6 +60,9 @@ jobs:
     - name: Build
       shell: cmd
       working-directory: ${{ github.workspace }}
+      env:
+          INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
+          LIBPATH: ${{env.VCPKG_ROOT}}\installed\x64-windows\lib
       run: |
          echo "VCPKG_ROOT         : ${{env.VCPKG_ROOT}}"
          echo "BUILD_CONFIGURATION: ${{env.BUILD_CONFIGURATION}}"
