@@ -17,27 +17,35 @@ permissions:
 
 jobs:
   gnucobol_3_1_2_windows_x64_mingw:
+    name: gnucobol_3_1_2_windows_x64_mingw
+    runs-on: windows-latest  
     env:
       PKG_NAME: gnucobol-3.1.2-windows-x64-mingw
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x86_64
       
-    name: Install gnucobol-3.1.2-windows-x64-mingw
-    runs-on: windows-latest
     steps:
-    - name: Install packages
+    - name: Install MSYS2
       uses: msys2/setup-msys2@v2
       with:
          location: ${{ env.MSYS2_INSTALL_ROOT }}
          msystem: ${{ env.MSYS2_SYSTEM }}
-         install: mingw-w64-${{ env.PLATFORM_ID }}-gnucobol    
-         
+		 
+    - name: Installing GnuCOBOL
+      shell: msys2 {0}
+      env:
+         PKG_DIR: $(cygpath('${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_NAME: gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+      run: |
+        uname -a
+        mkdir -p $PKG_DIR
+        pacman --noconfirm --root=$PKG_DIR --dbpath=$PKG_DIR -Sy mingw-w64-x86_64-gnucobol mingw-w64-x86_64-gnucobol
+ 
     - name: Build package
       shell: cmd
-      continue-on-error: true
+#      continue-on-error: true
       run: |
-         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.* /MIR /NFL /NDL /nc /ns /np
-         7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
+         7z a -r -w${{ github.workspace }} ${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
@@ -46,27 +54,35 @@ jobs:
          path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
 
   gnucobol_3_1_2_windows_x86_mingw:
+    name: gnucobol_3_1_2_windows_x86_mingw
+    runs-on: windows-latest  
     env:
       PKG_NAME: gnucobol-3.1.2-windows-x86-mingw
       MSYS2_SYSTEM: MINGW32
       PLATFORM_ID: i686
-      
-    name: Install gnucobol-3.1.2-windows-x86-mingw
-    runs-on: windows-latest
+
     steps:
-    - name: Install packages
+    - name: Install MSYS2
       uses: msys2/setup-msys2@v2
       with:
          location: ${{ env.MSYS2_INSTALL_ROOT }}
          msystem: ${{ env.MSYS2_SYSTEM }}
-         install: mingw-w64-${{ env.PLATFORM_ID }}-gnucobol    
-         
+		 
+    - name: Installing GnuCOBOL
+      shell: msys2 {0}
+      env:
+         PKG_DIR: $(cygpath('${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_NAME: gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+      run: |
+        uname -a
+        mkdir -p $PKG_DIR
+        pacman --noconfirm --root=$PKG_DIR --dbpath=$PKG_DIR -Sy mingw-w64-x86_64-gnucobol mingw-w64-x86_64-gnucobol
+ 
     - name: Build package
       shell: cmd
-      continue-on-error: true
+#      continue-on-error: true
       run: |
-         robocopy ${{ env.MSYS2_INSTALL_ROOT }}\msys64 ${{ github.workspace }}\${{ env.PKG_NAME }} *.* /MIR /NFL /NDL /nc /ns /np
-         7z a -r -w${{ github.workspace }} ${{ github.workspace }}\${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
+         7z a -r -w${{ github.workspace }} ${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
