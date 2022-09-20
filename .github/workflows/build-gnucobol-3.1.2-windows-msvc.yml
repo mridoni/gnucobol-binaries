@@ -56,13 +56,8 @@ jobs:
           triplet: x86-windows
           disable-cache: false       
           cache-key: x86-pkgs
-
-    - name: Build
-      shell: cmd
-      working-directory: ${{ github.workspace }}
-      env:
-          VCPKG_INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
-          VCPKG_LIBPATH: ${{env.VCPKG_ROOT}}\installed\x64-windows\lib
+          
+    - name: Prepare sources      
       run: |
          echo "VCPKG_ROOT         : ${{env.VCPKG_ROOT}}"
          echo "BUILD_CONFIGURATION: ${{env.BUILD_CONFIGURATION}}"
@@ -77,9 +72,25 @@ jobs:
          win_bison -o "cobc\parser.c" "cobc\parser.y"
          win_bison -o "cobc\ppparse.c" "cobc\ppparse.y"
          win_flex -o "cobc\pplex.c" "cobc\pplex.l"
-         win_flex -o "cobc\scanner.c" "cobc\scanner.l"        
-         msbuild /m /p:Platform=x64 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};$(IncludePath)" /p:LibPath="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
-         msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+         win_flex -o "cobc\scanner.c" "cobc\scanner.l"  
+         
+    - name: Build (x64)
+      shell: cmd
+      working-directory: ${{ github.workspace }}
+      env:
+          VCPKG_INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
+          VCPKG_LIBPATH: ${{env.VCPKG_ROOT}}\installed\x64-windows\lib
+      run: |
+         msbuild /m /p:Platform=x64 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}" /p:LibPath="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
+
+    - name: Build (x86)
+      shell: cmd
+      working-directory: ${{ github.workspace }}
+      env:
+          VCPKG_INCLUDE: ${{env.VCPKG_ROOT}}\installed\x86-windows\include
+          VCPKG_LIBPATH: ${{env.VCPKG_ROOT}}\installed\x86-windows\lib
+      run: |     
+         msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}" /p:LibPath="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
 
 #    - name: Archive production artifacts
 #      uses: actions/upload-artifact@v3
