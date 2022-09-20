@@ -70,7 +70,7 @@ jobs:
     - name: Installing GnuCOBOL
       shell: msys2 {0}
       env:
-         PKG_DIR: $(cygpath('${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
          PKG_NAME: gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
       run: |
         uname -a
