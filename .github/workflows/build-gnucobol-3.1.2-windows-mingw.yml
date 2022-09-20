@@ -30,7 +30,7 @@ jobs:
       with:
          location: ${{ env.MSYS2_INSTALL_ROOT }}
          msystem: ${{ env.MSYS2_SYSTEM }}
-		 
+
     - name: Installing GnuCOBOL
       shell: msys2 {0}
       env:
@@ -43,7 +43,6 @@ jobs:
  
     - name: Build package
       shell: cmd
-#      continue-on-error: true
       run: |
          7z a -r -w${{ github.workspace }} ${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
          
@@ -67,7 +66,7 @@ jobs:
       with:
          location: ${{ env.MSYS2_INSTALL_ROOT }}
          msystem: ${{ env.MSYS2_SYSTEM }}
-		 
+
     - name: Installing GnuCOBOL
       shell: msys2 {0}
       env:
@@ -80,7 +79,6 @@ jobs:
  
     - name: Build package
       shell: cmd
-#      continue-on-error: true
       run: |
          7z a -r -w${{ github.workspace }} ${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
          
