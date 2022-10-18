@@ -13,7 +13,7 @@ The most recent binary packages are in the "Releases" page. All of them are sign
 
 **Licenses**
 
-- Gix-IDE is licensed under GPL3/LGPL3
-- The workflow files in this repository are dually licensed under GPL3 or LGPL3
 - The GnuCOBOL compiler is licensed under the GNU General Public License
 - The GnuCOBOL run-time library is licensed under GNU Lesser General Public License
+- Gix-IDE is licensed under GPL3/LGPL3
+- The workflow files in this repository are dually licensed under GPL3 or LGPL3
