@@ -108,7 +108,7 @@ jobs:
       env:
           INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
       run: |     
-         build_windows\makedist.cmd
+         call build_windows\makedist.cmd
          ren build_windows\GnuCOBOL_3.1.2_vs_bin.7z build_windows\gnucobol-3.1.2-windows-msvc-all.7z
 
     - name: Archive production artifacts
