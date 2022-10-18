@@ -1,4 +1,4 @@
-name: gnucobol-3.1.2-windows-mingw.yml
+name: gnucobol-3.1.2-windows-mingw
 
 on:
   workflow_dispatch
