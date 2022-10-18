@@ -47,6 +47,8 @@ jobs:
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
+      env:
+         PKG_NAME: ${{ env.ARTIFACT_NAME }}-${{ env.PLATFORM_ID }}           
       with:
          name: ${{ env.ARTIFACT_NAME }}
          path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
@@ -82,6 +84,8 @@ jobs:
          
     - name: Archive package
       uses: actions/upload-artifact@v3  
+      env:
+         PKG_NAME: ${{ env.ARTIFACT_NAME }}-${{ env.PLATFORM_ID }}      
       with:
          name: ${{ env.ARTIFACT_NAME }}
          path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
