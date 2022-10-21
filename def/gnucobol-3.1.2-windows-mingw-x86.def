@@ -1,0 +1,19 @@
+<gix-ide-compiler-def>
+  <id>gnucobol-3.1.2-windows-mingw-x86</id>
+  <name>GnuCOBOL 3.1.2 (MingW) x86 (BDB, GMP, ncursesw)</name>
+  <version>3.1.2</version>
+  <homedir>${gixdata}/compiler-pkgs/gnucobol-3.1.2-windows-mingw-x86</homedir>
+  <host_platform>x86</host_platform>
+  <target_platforms>x86</target_platforms>
+  <is_vs_based>false</is_vs_based>
+  <supports_anim>false</supports_anim>
+
+  <platform id="x86">
+    <bin_dir_path>${homedir}/bin</bin_dir_path>
+    <lib_dir_path>${homedir}/lib</lib_dir_path>
+    <include_dir_path>${homedir}/include</include_dir_path>
+    <config_dir_path>${homedir}/share/gnucobol/config</config_dir_path>
+    <copy_dir_path>${homedir}/share/gnucobol/copy</copy_dir_path>
+  </platform>
+ 
+</gix-ide-compiler-def>
