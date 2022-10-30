@@ -109,11 +109,13 @@ jobs:
           INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
       run: |     
          call build_windows\makedist.cmd
-         copy build_windows\GnuCOBOL_3.1.2_vs_bin.7z build_windows\gnucobol-3.1.2-windows-msvc-all.7z
+         mkdir ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all
+         7z x -w ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all build_windows\GnuCOBOL_3.1.2_vs_bin.7z
+         7z a -r ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all.7z ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v3
       with:
         name: GnuCOBOL-3.1.2-Windows-MSVC_x86-x64 (BDB, MPIR, PDcurses, XML2, JSON)
         path: |
-          ${{ github.workspace }}/build_windows/gnucobol-3.1.2-windows-msvc-all.7z
+          ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all.7z
