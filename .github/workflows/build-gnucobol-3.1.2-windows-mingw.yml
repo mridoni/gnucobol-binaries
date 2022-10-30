@@ -39,6 +39,11 @@ jobs:
         uname -a
         mkdir -p ${{ env.PKG_DIR }}
         pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-x86_64-gnucobol mingw-w64-x86_64-gnucobol
+        rm -fr ${{ env.PKG_DIR }}/local
+        rm -fr ${{ env.PKG_DIR }}/sync
+        rm -fr ${{ env.PKG_DIR }}/tmp
+        mv ${{ env.PKG_DIR }}/mingw64/* ${{ env.PKG_DIR }}/
+        rm -fr ${{ env.PKG_DIR }}/mingw64/
  
     - name: Build package
       shell: cmd
@@ -79,6 +84,11 @@ jobs:
         uname -a
         mkdir -p ${{ env.PKG_DIR }}
         pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-x86_64-gnucobol mingw-w64-x86_64-gnucobol
+        rm -fr ${{ env.PKG_DIR }}/local
+        rm -fr ${{ env.PKG_DIR }}/sync
+        rm -fr ${{ env.PKG_DIR }}/tmp
+        mv ${{ env.PKG_DIR }}/mingw64/* ${{ env.PKG_DIR }}/
+        rm -fr ${{ env.PKG_DIR }}/mingw64/        
  
     - name: Build package
       shell: cmd

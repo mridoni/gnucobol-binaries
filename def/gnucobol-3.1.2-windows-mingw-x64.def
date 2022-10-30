@@ -1,6 +1,6 @@
 <gix-ide-compiler-def>
   <id>gnucobol-3.1.2-windows-mingw-x64</id>
-  <name>GnuCOBOL 3.1.2 (MingW) x64 (BDB, GMP, ncursesw)</name>
+  <name>GnuCOBOL 3.1.2 (MinGW) x64 (BDB, GMP, ncursesw)</name>
   <version>3.1.2</version>
   <homedir>${gixdata}/compiler-pkgs/gnucobol-3.1.2-windows-mingw-x64</homedir>
   <host_platform>x64</host_platform>
