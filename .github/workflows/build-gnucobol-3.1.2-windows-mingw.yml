@@ -21,7 +21,7 @@ jobs:
     runs-on: windows-latest  
     env:
       MSYS2_SYSTEM: MINGW64
-      PLATFORM_ID: x86_64
+      PLATFORM_ID: x64
       
     steps:
     - name: Install MSYS2
@@ -61,7 +61,7 @@ jobs:
     runs-on: windows-latest  
     env:
       MSYS2_SYSTEM: MINGW32
-      PLATFORM_ID: i686
+      PLATFORM_ID: x86
 
     steps:
     - name: Install MSYS2
