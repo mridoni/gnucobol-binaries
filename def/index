@@ -1,0 +1,5 @@
+3.1.2-20221018;gnucobol-3.1.2-windows-msvc-all;3.1.2;x64;all;msvc;GnuCOBOL 3.1.2 Windows x86+x64 (MSVC, build options included: BDB, MPIR, PDcurses, XML2, JSON)
+3.1.2-20221018;gnucobol-3.1.2-windows-msvc-all;3.1.2;x86;x86;msvc;GnuCOBOL 3.1.2 Windows x86+x64 (MSVC, build options included: BDB, MPIR, PDcurses, XML2, JSON)
+3.1.2-20221018;gnucobol-3.1.2-windows-mingw-x86_64;3.1.2;x64;x64;gcc;GnuCOBOL 3.1.2 Windows x86 (MinGW32, GCC 11.2.0, build options included: BDB, GMP, ncursesw, XML2, JSON)
+3.1.2-20221018;gnucobol-3.1.2-windows-mingw-i686;3.1.2;x86;x86;gcc;GnuCOBOL 3.1.2 Windows x86 (MinGW32, GCC 11.2.0, build options included: BDB, GMP, ncursesw, XML2, JSON)
+3.1.2-20221018;gnucobol-3.1.2-windows-mingw-i686;3.1.2;x64;x86;gcc;GnuCOBOL 3.1.2 Windows x86 (MinGW32, GCC 11.2.0, build options included: BDB, GMP, ncursesw, XML2, JSON)
