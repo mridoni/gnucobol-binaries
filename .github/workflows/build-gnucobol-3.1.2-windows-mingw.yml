@@ -22,6 +22,7 @@ jobs:
     env:
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x64
+      MINGW_PLATFORM: x86_64
       
     steps:
     - name: Install MSYS2
@@ -38,7 +39,7 @@ jobs:
       run: |
         uname -a
         mkdir -p ${{ env.PKG_DIR }}
-        pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-x86_64-gnucobol mingw-w64-x86_64-gnucobol
+        pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-${{ env.MINGW_PLATFORM }}-gnucobol mingw-w64-${{ env.MINGW_PLATFORM }}-gnucobol
         rm -fr ${{ env.PKG_DIR }}/local
         rm -fr ${{ env.PKG_DIR }}/sync
         rm -fr ${{ env.PKG_DIR }}/tmp
@@ -67,6 +68,7 @@ jobs:
     env:
       MSYS2_SYSTEM: MINGW32
       PLATFORM_ID: x86
+      MINGW_PLATFORM: i686
 
     steps:
     - name: Install MSYS2
@@ -83,7 +85,7 @@ jobs:
       run: |
         uname -a
         mkdir -p ${{ env.PKG_DIR }}
-        pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-x86_64-gnucobol mingw-w64-x86_64-gnucobol
+        pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-${{ env.MINGW_PLATFORM }}-gnucobol mingw-w64-${{ env.MINGW_PLATFORM }}-gnucobol
         rm -fr ${{ env.PKG_DIR }}/local
         rm -fr ${{ env.PKG_DIR }}/sync
         rm -fr ${{ env.PKG_DIR }}/tmp
