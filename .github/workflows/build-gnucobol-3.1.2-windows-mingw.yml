@@ -89,9 +89,8 @@ jobs:
         rm -fr ${{ env.PKG_DIR }}/local
         rm -fr ${{ env.PKG_DIR }}/sync
         rm -fr ${{ env.PKG_DIR }}/tmp
-        ls -l ${{ env.PKG_DIR }}/
-        mv ${{ env.PKG_DIR }}/mingw64/* ${{ env.PKG_DIR }}/
-        rm -fr ${{ env.PKG_DIR }}/mingw64/        
+        mv ${{ env.PKG_DIR }}/mingw32/* ${{ env.PKG_DIR }}/
+        rm -fr ${{ env.PKG_DIR }}/mingw32/        
  
     - name: Build package
       shell: cmd
