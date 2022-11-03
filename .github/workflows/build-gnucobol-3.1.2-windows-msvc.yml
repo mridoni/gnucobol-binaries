@@ -110,7 +110,7 @@ jobs:
       run: |     
          call build_windows\makedist.cmd
          mkdir ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all
-         7z x -o ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all build_windows\GnuCOBOL_3.1.2_vs_bin.7z
+         7z x -o${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all build_windows\GnuCOBOL_3.1.2_vs_bin.7z
          7z a -r ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all.7z ${{ github.workspace }}\gnucobol-3.1.2-windows-msvc-all
 
     - name: Archive production artifacts
