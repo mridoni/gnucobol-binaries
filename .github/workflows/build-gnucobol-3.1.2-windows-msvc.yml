@@ -74,7 +74,7 @@ jobs:
          sed -i 's/"libcharset\.dll"/"charset\.dll"/' build_windows\makedist.cmd
          sed -i 's/"lzma\*\.dll"/"liblzma\.dll"/' build_windows\makedist.cmd
          sed -i 's/"iconv"/"iconv\-2\.dll"/' build_windows\makedist.cmd         
-         sed -i 's/for\ \%\%v\ in\ (2019 2017)\ do\ (/for %%v in (2022 2019 2017) do (/' build_windows\gcvsvars.cmd
+         sed -i 's/2019\ 2017/2022\ 2019\ 2017/' build_windows\gcvsvars.cmd
          win_bison -o "cobc\parser.c" "cobc\parser.y"
          win_bison -o "cobc\ppparse.c" "cobc\ppparse.y"
          win_flex -o "cobc\pplex.c" "cobc\pplex.l"
