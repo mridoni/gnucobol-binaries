@@ -1,4 +1,4 @@
-name: gnucobol-3.1.2-windows-mingw
+name: gnucobol-3.2rc1-windows-mingw
 
 on:
   workflow_dispatch
@@ -10,21 +10,21 @@ on:
 
 env:
     MSYS2_INSTALL_ROOT: d:\
-    ARTIFACT_NAME: gnucobol-3.1.2-windows-mingw
+    ARTIFACT_NAME: gnucobol-3.2rc1-windows-mingw
   
 permissions:
   contents: read
 
 jobs:
-  gnucobol_3_1_2_windows_x64_mingw:
+  gnucobol_3_2_rc1_windows_x64_mingw:
     name: gnucobol_3_1_2_windows_x64_mingw
     runs-on: windows-latest  
     env:
       MSYS2_SYSTEM: MINGW64
       PLATFORM_ID: x64
       MINGW_PLATFORM: x86_64
-      GNUCOBOL_PKG_URL: https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-gnucobol-3.1.2-4-any.pkg.tar.zst
-      GNUCOBOL_PKG_FILE: mingw-w64-x86_64-gnucobol-3.1.2-4-any.pkg.tar.zst
+      GNUCOBOL_PKG_URL: https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-gnucobol-3.2_rc1-1-any.pkg.tar.zst
+      GNUCOBOL_PKG_FILE: mingw-w64-x86_64-gnucobol-3.2_rc1-1-any.pkg.tar.zst   
       
     steps:
     - name: Install MSYS2
@@ -36,7 +36,7 @@ jobs:
     - name: Installing GnuCOBOL
       shell: msys2 {0}
       env:
-         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.2rc1-windows-mingw-${{ env.PLATFORM_ID }}
          PKG_NAME: ${{ env.ARTIFACT_NAME }}-${{ env.PLATFORM_ID }}
       run: |
         uname -a
@@ -54,7 +54,7 @@ jobs:
     - name: Build package
       shell: cmd
       env:
-         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.2rc1-windows-mingw-${{ env.PLATFORM_ID }}
          PKG_NAME: ${{ env.ARTIFACT_NAME }}-${{ env.PLATFORM_ID }}      
       run: |
          7z a -r -w${{ github.workspace }} ${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}
@@ -68,14 +68,14 @@ jobs:
          path: ${{ github.workspace }}/${{ env.PKG_NAME }}.7z
 
   gnucobol_3_1_2_windows_x86_mingw:
-    name: gnucobol_3_1_2_windows_x86_mingw
+    name: gnucobol_3_2_rc1_windows_x86_mingw
     runs-on: windows-latest  
     env:
       MSYS2_SYSTEM: MINGW32
       PLATFORM_ID: x86
       MINGW_PLATFORM: i686
-      GNUCOBOL_PKG_URL: https://repo.msys2.org/mingw/mingw32/mingw-w64-i686-gnucobol-3.1.2-4-any.pkg.tar.zst
-      GNUCOBOL_PKG_FILE: mingw-w64-i686-gnucobol-3.1.2-4-any.pkg.tar.zst    
+      GNUCOBOL_PKG_URL: https://repo.msys2.org/mingw/mingw32/mingw-w64-i686-gnucobol-3.2_rc1-1-any.pkg.tar.zst
+      GNUCOBOL_PKG_FILE: mingw-w64-i686-gnucobol-3.2_rc1-1-any.pkg.tar.zst         
 
     steps:
     - name: Install MSYS2
@@ -87,7 +87,7 @@ jobs:
     - name: Installing GnuCOBOL
       shell: msys2 {0}
       env:
-         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.2rc1-windows-mingw-${{ env.PLATFORM_ID }}
          PKG_NAME: ${{ env.ARTIFACT_NAME }}-${{ env.PLATFORM_ID }}
       run: |
         uname -a
@@ -95,7 +95,7 @@ jobs:
         # :pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy mingw-w64-${{ env.MINGW_PLATFORM }}-gnucobol
         curl -L -s ${{ env.GNUCOBOL_PKG_URL }} -o ${{ env.GNUCOBOL_PKG_FILE }}
         pacman --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} -Sy
-        pacman -U --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} ${{ env.GNUCOBOL_PKG_FILE }}
+        pacman -U --noconfirm --root=${{ env.PKG_DIR }} --dbpath=${{ env.PKG_DIR }} ${{ env.GNUCOBOL_PKG_FILE }}        
         rm -fr ${{ env.PKG_DIR }}/local
         rm -fr ${{ env.PKG_DIR }}/sync
         rm -fr ${{ env.PKG_DIR }}/tmp
@@ -105,7 +105,7 @@ jobs:
     - name: Build package
       shell: cmd
       env:
-         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.1.2-windows-mingw-${{ env.PLATFORM_ID }}
+         PKG_DIR: $(cygpath '${{ github.workspace }}')/gnucobol-3.2rc1-windows-mingw-${{ env.PLATFORM_ID }}
          PKG_NAME: ${{ env.ARTIFACT_NAME }}-${{ env.PLATFORM_ID }}      
       run: |
          7z a -r -w${{ github.workspace }} ${{ env.PKG_NAME }}.7z ${{ env.PKG_NAME }}

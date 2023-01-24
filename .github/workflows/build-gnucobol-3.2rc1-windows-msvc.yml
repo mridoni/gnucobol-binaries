@@ -1,4 +1,4 @@
-name: gnucobol-3.1.2-windows-msvc
+name: gnucobol-3.2rc1-windows-msvc
 
 on:
   workflow_dispatch
@@ -16,16 +16,16 @@ permissions:
   contents: read
 
 jobs:
-  gnucobol_3_1_2_windows_msvc:
+  gnucobol_3_2rc1_windows_msvc:
     
-    name: gnucobol-3.1.2-windows
+    name: gnucobol-3.2rc1-windows-msvc
     env:
-      GNUCOBOL_SRC_URL: https://ftp.gnu.org/gnu/gnucobol/windows/gnucobol-3.1.2_win_src.7z
-      GNUCOBOL_SRC_FILE: gnucobol-3.1.2_win_src.7z
-      GNUCOBOL_SRC_DIR: gnucobol-3.1.2_win
-      GNUCOBOL_VERSION: 3.1.2
+      GNUCOBOL_SRC_URL: https://alpha.gnu.org/gnu/gnucobol/gnucobol-3.2-rc1_win.zip
+      GNUCOBOL_SRC_FILE: gnucobol-3.2-rc1_win.zip
+      GNUCOBOL_SRC_DIR: gnucobol-3.2-rc1_win
+      GNUCOBOL_VERSION: 3.2rc1
       SOLUTION_FILE_PATH: build_windows/vs2019/GnuCOBOL.sln
-      MAKEDIST_OUTPUT: GnuCOBOL_3.1.2_vs_bin.7z
+      MAKEDIST_OUTPUT: GnuCOBOL_3.2-dev_vs_bin.7z
       
     runs-on: windows-2019
 #    runs-on: windows-latest
@@ -116,3 +116,4 @@ jobs:
         name: GnuCOBOL-${{ env.GNUCOBOL_VERSION}}-Windows-MSVC_x86-x64 (BDB, MPIR, PDcurses, XML2, JSON)
         path: |
           ${{ github.workspace }}\gnucobol-${{ env.GNUCOBOL_VERSION}}-windows-msvc-all.7z
+
