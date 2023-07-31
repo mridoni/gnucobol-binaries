@@ -1,0 +1,119 @@
+name: gnucobol-3.2-windows-msvc
+
+on:
+  workflow_dispatch
+  
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
+
+env:
+  VCPKG_ROOT: C:\vcpkg
+  BUILD_CONFIGURATION: Release 
+  
+permissions:
+  contents: read
+
+jobs:
+  gnucobol_3_2_windows_msvc:
+    
+    name: gnucobol-3.2-windows-msvc
+    env:
+      GNUCOBOL_SRC_URL: https://master.dl.sourceforge.net/project/gnucobol/gnucobol/3.2/gnucobol-3.2_win.zip?viasf=1
+      GNUCOBOL_SRC_FILE: gnucobol-3.2-win.zip
+      GNUCOBOL_SRC_DIR: gnucobol-3.2_win
+      GNUCOBOL_VERSION: 3.2
+      SOLUTION_FILE_PATH: build_windows/vs2019/GnuCOBOL.sln
+      MAKEDIST_OUTPUT: GnuCOBOL_3.2_vs_bin.7z
+      
+    runs-on: windows-2019
+#    runs-on: windows-latest
+#    runs-on: self-hosted
+    
+    steps:
+
+    - name: Get GnuCOBOL
+      shell: cmd
+      run: |
+          curl -L -s ${{ env.GNUCOBOL_SRC_URL }} -o ${{ env.GNUCOBOL_SRC_FILE }}
+          7z x ${{ env.GNUCOBOL_SRC_FILE }}
+      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+                   
+    - name: Install vcpkg packages (x64)
+      uses: mridoni/my-vcpkg-action@v3
+      with:
+          pkgs: berkeleydb mpir pdcurses libxml2 cjson
+          triplet: x64-windows
+          disable-cache: false
+          cache-key: x64-pkgs
+    
+    - name: Install vcpkg packages (x86)
+      uses: mridoni/my-vcpkg-action@v3
+      with:
+          pkgs: berkeleydb mpir pdcurses libxml2 cjson
+          triplet: x86-windows
+          disable-cache: false       
+          cache-key: x86-pkgs
+          
+    - name: Prepare sources     
+      shell: cmd
+      working-directory: ${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}
+      run: |
+         cd 
+         echo "VCPKG_ROOT         : ${{env.VCPKG_ROOT}}"
+         echo "BUILD_CONFIGURATION: ${{env.BUILD_CONFIGURATION}}"
+         echo "SOLUTION_FILE_PATH : ${{env.SOLUTION_FILE_PATH}}"
+         ${{env.VCPKG_ROOT}}\vcpkg integrate install
+         copy build_windows\config.h.in build_windows\config.h
+         copy ${{env.VCPKG_ROOT}}\installed\x64-windows\include\db.h build_windows\db.h
+         sed -i 's/3\.1\.1\-dev/3\.1\.2/' build_windows\config.h
+         sed -i 's/#define\ CONFIGURED_ISAM\ *VBISAM/#define\ CONFIGURED_ISAM\ BDB/' build_windows\config.h
+         sed -i 's/#define\ CONFIGURED_XML\ *NOXML/#define\ CONFIGURED_XML\ XML2/' build_windows\config.h
+         sed -i 's/#define\ CONFIGURED_JSON\ *NOJSON/#define\ CONFIGURED_JSON\ CJSON_LOCAL/' build_windows\config.h      
+         sed -i 's/"libcharset"/"charset"/' build_windows\config.h
+         sed -i 's/"libiconv"/"iconv"/' build_windows\config.h
+         sed -i 's/"libintl\.dll"/"intl\.dll"/' build_windows\makedist.cmd
+         sed -i 's/"libiconv\.dll"/"iconv\.dll"/' build_windows\makedist.cmd
+         sed -i 's/"libcharset\.dll"/"charset\.dll"/' build_windows\makedist.cmd
+         sed -i 's/"lzma\*\.dll"/"liblzma\.dll"/' build_windows\makedist.cmd
+         sed -i 's/"iconv"/"iconv\-2\.dll"/' build_windows\makedist.cmd         
+         sed -i 's/2019\ 2017/2022\ 2019\ 2017/' build_windows\gcvsvars.cmd
+         
+    - name: Build (x64)
+      shell: cmd
+      working-directory: ${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}
+      env:
+          VCPKG_INCLUDE: ${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}\cobc;${{env.VCPKG_ROOT}}\installed\x64-windows\include;${{env.VCPKG_ROOT}}\installed\x64-windows\include\cjson;${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}\build_windows;${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}
+      run: |
+         msbuild /m /p:Platform=x64 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}"
+    
+    - name: Build (x86)
+      shell: cmd
+      working-directory: ${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}
+      env:
+          VCPKG_INCLUDE: ${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}\cobc;${{env.VCPKG_ROOT}}\installed\x86-windows\include;${{env.VCPKG_ROOT}}\installed\x86-windows\include\cjson;${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}\build_windows;${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}
+      run: |     
+         msbuild /m /p:Platform=x86 /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} /p:IncludePath="${{ env.VCPKG_INCLUDE }};${{ '$(IncludePath)' }}" /p:LibPath="${{ env.VCPKG_LIBPATH }};${{ '$(LibPath)' }}"
+ 
+    - name: Build dist package
+      shell: cmd
+      working-directory: ${{ github.workspace }}\${{ env.GNUCOBOL_SRC_DIR }}
+      env:
+          INCLUDE: ${{env.VCPKG_ROOT}}\installed\x64-windows\include
+      run: |     
+         copy ${{ env.VCPKG_ROOT }}\installed\x64-windows\include\mpir.h build_windows\
+         call build_windows\makedist.cmd
+         mkdir ${{ github.workspace }}\gnucobol-${{ env.GNUCOBOL_VERSION}}-windows-msvc-all
+         7z x -o${{ github.workspace }}\gnucobol-${{ env.GNUCOBOL_VERSION}}-windows-msvc-all build_windows\${{ env.MAKEDIST_OUTPUT}}
+         7z a -r ${{ github.workspace }}\gnucobol-${{ env.GNUCOBOL_VERSION}}-windows-msvc-all.7z ${{ github.workspace }}\gnucobol-${{ env.GNUCOBOL_VERSION}}-windows-msvc-all
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: GnuCOBOL-${{ env.GNUCOBOL_VERSION}}-Windows-MSVC_x86-x64 (BDB, MPIR, PDcurses, XML2, JSON)
+        path: |
+          ${{ github.workspace }}\gnucobol-${{ env.GNUCOBOL_VERSION}}-windows-msvc-all.7z
+
